@@ -9,3 +9,6 @@ puts "Linda Cooper"
 puts "Deborah Jordan"
 puts "Lucas Scott"
 puts "Andrew Oates"
+print "Overall, we have "
+print 9
+puts " great students"
