@@ -9,6 +9,8 @@ puts "Linda Cooper"
 puts "Deborah Jordan"
 puts "Lucas Scott"
 puts "Andrew Oates"
+#finally, we print the total
 print "Overall, we have "
+#it's important that print() doesn't add new line characters
 print 9
 puts " great students"
