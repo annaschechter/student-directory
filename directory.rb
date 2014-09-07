@@ -1,14 +1,13 @@
-# let's put all students into an array
 students = [
-"Nina Herring",
-"Sam Becker",
-"Sarah Lester",
-"Mario Young",
-"Ayse Barch",
-"Linda Cooper",
-"Deborah Jordan",
-"Lucas Scott",
-"Andrew Oates"
+{:name => "Nina Herring", :cohort => :september},
+{:name => "Sam Becker", :cohort => :september},
+{:name => "Sarah Lester", :cohort => :september},
+{:name => "Mario Young", :cohort => :september},
+{:name => "Ayse Barch", :cohort => :september},
+{:name => "Linda Cooper", :cohort => :september},
+{:name => "Deborah Jordan", :cohort => :september},
+{:name => "Lucas Scott", :cohort => :september},
+{:name => "Andrew Oates", :cohort => :september}
 ]
 
 def print_header
@@ -17,10 +16,11 @@ def print_header
 end
 
 def print(names)
-  names.each {|name| puts name}
+  names.each {|student| puts "#{student[:name]} (#{student[:cohort]} cohort)"}
 end
 
 def print_footer(names)
+ names.each 
   puts "Overall, we have #{names.length} great students"
 end
 #nothing happens until we call the methods
