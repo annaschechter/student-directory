@@ -2,8 +2,9 @@
 
 def interactive_menu
   loop do
+    try_load_students
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -57,34 +58,34 @@ end
 
 def get_the_name
   print "Please enter the name of the student\n".center(50)
-  @name = gets.chomp
+  @name = STDIN.gets.chomp
 end
 
 def get_the_cohort
   print "Please enter the cohort of the student\n".center(50)
-  @cohort = gets.chomp
+  @cohort = STDIN.gets.chomp
   @months = [:september, :october, :november, :december, :january, :february, :march, :april, :may, :june, :july, :august]
   while !@months.include?(@cohort.downcase.to_sym)
     print "Cohort does not exist, please check the spelling\n".center(50)
-    @cohort = gets.chomp
+    @cohort = STDIN.gets.chomp
   end
 end
 
 def get_the_country    
   print "Please enter the student's country of birth\n".center(50)
-  @country = gets.chomp
+  @country = STDIN.gets.chomp
   while @country.empty?
     print "Please enter the student's country of birth\n".center(50)
-    @country = gets.chomp
+    @country = STDIN.gets.chomp
   end
 end
 
 def get_the_hobby
   print "Please enter the student's hobby\n".center(50)
-  @hobby = gets.chomp
+  @hobby = STDIN.gets.chomp
   while @hobby.empty? 
     print "Please enter the student's hobby\n".center(50)
-    @hobby = gets.chomp
+    @hobby = STDIN.gets.chomp
   end
 end
 
@@ -100,7 +101,7 @@ end
 def get_another_name
   print "Please enter the name of the next student\n".center(50)
   print "To finish, just hit return\n".center(50)
-  @name = gets.chomp
+  @name = STDIN.gets.chomp
 end
 
 
@@ -146,8 +147,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.cvs", "r")
+def load_students(filename = "students.cvs")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     words = line.chomp.split(",")
     name = words[0]
@@ -156,8 +157,19 @@ def load_students
     hobby = words[3]
     @students << {:name => name, :cohort => cohort.downcase.to_sym, :country => country, :hobby => hobby}
   end
-  puts "#{@students}"
   file.close
+end
+
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+    puts "Loaded #{@students.length} from #{filename}"
+  else #if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit # quit the program
+  end
 end
 
 #nothing happens until we call the method
