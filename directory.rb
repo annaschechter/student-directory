@@ -12,6 +12,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -24,6 +25,8 @@ def process(selection)
       show_students
     when "3"
       save_students
+    when "4"
+      load_students
     when "9"
       exit
     else 
@@ -108,8 +111,9 @@ end
 
 
 def print_student_list
+  @months = [:september, :october, :november, :december, :january, :february, :march, :april, :may, :june, :july, :august]
   num = 0
-  while num < @months.length
+  while num < 12
     x = @students.select{|student| student[:cohort] == @months[num]}
     if !x.empty?
     print "#{@months[num].capitalize}:\n"
@@ -141,5 +145,20 @@ def save_students
   end
   file.close
 end
+
+def load_students
+  file = File.open("students.cvs", "r")
+  file.readlines.each do |line|
+    words = line.chomp.split(",")
+    name = words[0]
+    cohort = words[1]
+    country = words[2]
+    hobby = words[3]
+    @students << {:name => name, :cohort => cohort.downcase.to_sym, :country => country, :hobby => hobby}
+  end
+  puts "#{@students}"
+  file.close
+end
+
 #nothing happens until we call the method
 interactive_menu
